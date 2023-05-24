@@ -1,0 +1,376 @@
+fileFormatVersion: 2
+guid: 698c78de70c2ba24c837819d65976962
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Frame_Mat
+    second: {fileID: 2100000, guid: dc61fb73c7573ab44a1e9f69f4ae677d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Glass_mat
+    second: {fileID: 2100000, guid: 3144fdfae30e38a4f85126d3ff26d3fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Ceiling_mat
+    second: {fileID: 2100000, guid: 3269970c643a9e44fadb4aa39f8e7ac9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Door_Handle_Mat
+    second: {fileID: 2100000, guid: b499e71f170c7ef40ae1d9c86ec6279b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Floor_Mat
+    second: {fileID: 2100000, guid: c865635299fc10e4a9b9cd5328b9295d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Picture_Frames_Mat
+    second: {fileID: 2100000, guid: f86769a2b89347c4a8f9e43e87b97a27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Pillar_Mat
+    second: {fileID: 2100000, guid: d546216bd2a92314c95ed0219f0ecc5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Pillar_Set_1_Mat
+    second: {fileID: 2100000, guid: 8abb3479a3493ca4d8e2decfab3f2e4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Pillar_Set_2_Mat
+    second: {fileID: 2100000, guid: c48e13437226ccf468cd01d6bd73e7f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Pillar_inner_Glow_Mat
+    second: {fileID: 2100000, guid: 980e5ad445b76d7408ab0427bb533a0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_10_Mat
+    second: {fileID: 2100000, guid: 8e79c75039ad9aa41b06e99445d63cd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_11_Mat
+    second: {fileID: 2100000, guid: 852d4bf2b88aef74f924fe532cd6b20c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_12_Mat
+    second: {fileID: 2100000, guid: 15fa926ed2cd94a4ab3d3613cb9d7463, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_13_Mat
+    second: {fileID: 2100000, guid: 1798ab270a565104d909532c84102937, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_1_Mat
+    second: {fileID: 2100000, guid: f737037ed8c3bcd44a29e3c4a2cf5ff9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_2_Mat
+    second: {fileID: 2100000, guid: e3627e6b660b0494eb315f1bfbdddd96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_3_Mat
+    second: {fileID: 2100000, guid: a4127505487bef440908f6333fcf5c18, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_4_Mat
+    second: {fileID: 2100000, guid: 4009cf9cf84c5af4c93f96ec36c0d510, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_5_Mat
+    second: {fileID: 2100000, guid: 64505d72e7e66cd4b8d5850215effc66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_6_Mat
+    second: {fileID: 2100000, guid: 269d6c62b9280794496bcb3d684f30ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_7_Mat
+    second: {fileID: 2100000, guid: 44e10b16005743548b6b2636b4259a9c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_8_Mat
+    second: {fileID: 2100000, guid: 8fd6a64011f94834fb1198defe511754, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Rectangleposter_9_Mat
+    second: {fileID: 2100000, guid: 912c2baae4fc1ef4f8766b4d0660b4cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Sponser_Mat
+    second: {fileID: 2100000, guid: bfc25a1a264dc294b8a20cf17bcb14f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_10_Mat
+    second: {fileID: 2100000, guid: 3fa64953ee6f0e146953221e72bba1da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_11_Mat
+    second: {fileID: 2100000, guid: e17fa0018ff3c9145b6df1b0c06c8fdc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_12_Mat
+    second: {fileID: 2100000, guid: 71076ecf86781834ba065926d068af24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_1_mat
+    second: {fileID: 2100000, guid: 01e7e97cc51d3c54082b95faebc7e2a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_2_mat
+    second: {fileID: 2100000, guid: cc7bb85cf8ef61b4d8afc16014fc2a54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_3_mat
+    second: {fileID: 2100000, guid: ed00f7efdbbe8b4408ee44782ad8b57c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_4_mat
+    second: {fileID: 2100000, guid: 5d773a1382b722e4983000259e7f6266, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_5_mat
+    second: {fileID: 2100000, guid: 3a26b957d3d57f247a3ddda2eaff33d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_6_Mat
+    second: {fileID: 2100000, guid: af3e9b5f0b0d2574d892ef847dd31719, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_7_Mat
+    second: {fileID: 2100000, guid: 93db20e3e87e9764ab660245958b51ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_SquarePoster_8_Mat
+    second: {fileID: 2100000, guid: 8809ad086416276489df729f6463a52a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Squareposter_9_mat
+    second: {fileID: 2100000, guid: 1f068cdceef96ec468d00668bb87d4e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_screen_Mat
+    second: {fileID: 2100000, guid: 303c62b98ea9f514caac1fa140d26eff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Tunnel_Light_Glow
+    second: {fileID: 2100000, guid: cecbdb6f32de15c448db49ac4895cd21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Tunnel_Light_border
+    second: {fileID: 2100000, guid: 4933c3e4369e28644a8b37ecf6024373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Wall_Glow_Mat
+    second: {fileID: 2100000, guid: f69a88fd79796744fbb40099c4621f79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_ceiling_Glow_Mat
+    second: {fileID: 2100000, guid: 27892bd4034682643b869750959f245f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_sponsor_poster_1_Mat
+    second: {fileID: 2100000, guid: 4429f29c633447c4dae66881f6823856, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_sponsor_poster_2_Mat
+    second: {fileID: 2100000, guid: 172c4fbe0e7425f49acf9b3b04f5d9e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_timeline_Frame_mat
+    second: {fileID: 2100000, guid: 1c760209c5480a04bb8eb3c608a53502, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_walls_Mat
+    second: {fileID: 2100000, guid: aa4a8f62ea31e324cbaa91c12ed73068, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: 3ee66b166fda775419f894f98332a6cc, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glass Pillar 1
+    second: {fileID: 2800000, guid: e322aaf2025eac0499cca7c2ece0587c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glass Pillar 2
+    second: {fileID: 2800000, guid: 5add5099eb84260479c1916c26420a73, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum Ceiling
+    second: {fileID: 2800000, guid: 730bf95f891847847a76f400032a5cf7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum Doors
+    second: {fileID: 2800000, guid: 278122be69cb204459d48b22ed38c19d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum Wall 1
+    second: {fileID: 2800000, guid: 54bd309786948db46920caba070cf871, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum_Floor-seamless
+    second: {fileID: 2800000, guid: 31db4ace239ba64419100c12162f9c53, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Off white map
+    second: {fileID: 2800000, guid: d39a5a00f74de2c4fb6ddb96121ee11e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pillar solid
+    second: {fileID: 2800000, guid: 56c4094373b755f48b6ed94898769a65, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
