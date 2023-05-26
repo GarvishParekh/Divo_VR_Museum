@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace TriLibCore.Samples
 {
     /// <summary>
@@ -12,6 +13,8 @@ namespace TriLibCore.Samples
         public string ModelURL = "https://ricardoreis.net/trilib/demos/sample/TriLibSampleModel.zip";
         public Transform dummyModel;
         public GameObject loadedModel;
+
+        public static Action modelLoaded;
 
         /// <summary>
         /// Creates the AssetLoaderOptions instance, configures the Web Request, and downloads the Model.
@@ -76,6 +79,8 @@ namespace TriLibCore.Samples
 
             loadedModel.transform.SetParent(dummyModel);
             loadedModel.transform.localPosition = new Vector3(0, 0, 0);
+
+            modelLoaded?.Invoke();
         }
     }
 }

@@ -11,6 +11,7 @@ using RenderHeads.Media.AVProVideo;
 public class ApiManager : MonoBehaviour
 {
     public static Action ApiLoaded;
+
     public UiManager uiManager;
 
     [SerializeField] private string url;
@@ -24,6 +25,12 @@ public class ApiManager : MonoBehaviour
     [SerializeField] private List<MediaPlayer> mediaPlayer = new List<MediaPlayer>();
 
     [SerializeField] private AudioSource desAudioSource;
+
+    [SerializeField] private Texture imageTexture; 
+
+    [Space]
+    [SerializeField] private Material leftMaterial;
+    [SerializeField] private Material rightMaterial;
 
     public bool apiLoaded = false;
 
@@ -49,8 +56,6 @@ public class ApiManager : MonoBehaviour
         else
         {
             jsonString = request.downloadHandler.text;
-            //data = JsonUtility.FromJson<MuseumData[]>(jsonString);
-
             DeserializeDCollection(jsonString);
         }
     }
@@ -65,7 +70,7 @@ public class ApiManager : MonoBehaviour
             name = root["data"][0]["name"],
             file = root["data"][0]["file"],
 
-            slots = new SlotsData(),
+            slots = new SlotsData()
         });
 
         int trophyCount = root["data"][0]["slots"]["trophy"].Count;
@@ -84,6 +89,17 @@ public class ApiManager : MonoBehaviour
             });
         }
 
+        int imageCount = root["data"][0]["slots"]["image"].Count;
+        for (int i = 0; i < imageCount; i++)
+        {
+            data[0].slots.s_Image.Add(new ImageData()
+            {
+                id = root["data"][0]["slots"]["image"][i]["id"],
+                token = root["data"][0]["slots"]["image"][i]["token"],
+                s3_value = root["data"][0]["slots"]["image"][i]["s3_value"]
+            });
+        }
+
         for (int i = 0; i < trophyCount; i++)
         {
             SetDataOnUI(i);
@@ -91,8 +107,7 @@ public class ApiManager : MonoBehaviour
             SetVideoURL(i);
         }
 
-        SetAudioURL(2);
-
+        LoadS_Image();
         ApiLoaded?.Invoke();
     }
 
@@ -103,9 +118,9 @@ public class ApiManager : MonoBehaviour
             uiManager.uiTrophyData[count].name.text = data[0].slots.trophy[count].name;
             uiManager.uiTrophyData[count].description.text = data[0].slots.trophy[count].description;
 
-            uiManager.uiTrophyData[count].modelURL = data[0].slots.trophy[count].model;
-            uiManager.uiTrophyData[count].audioURL = data[0].slots.trophy[count].audio;
-            uiManager.uiTrophyData[count].videoURL = data[0].slots.trophy[count].video;
+            //uiManager.uiTrophyData[count].modelURL = data[0].slots.trophy[count].model;
+            //uiManager.uiTrophyData[count].audioURL = data[0].slots.trophy[count].audio;
+            //uiManager.uiTrophyData[count].videoURL = data[0].slots.trophy[count].video;
         }
     }
 
@@ -118,7 +133,7 @@ public class ApiManager : MonoBehaviour
     void SetVideoURL(int count)
     {
         string videoPath = data[0].slots.trophy[count].video;
-        mediaPlayer[count].OpenMedia(MediaPathType.AbsolutePathOrURL, videoPath, autoPlay: false);
+        mediaPlayer[count].OpenMedia(MediaPathType.AbsolutePathOrURL, videoPath, autoPlay: true);
     }
 
     public void SetAudioURL(int count)
@@ -126,6 +141,34 @@ public class ApiManager : MonoBehaviour
         string audioPath = data[0].slots.trophy[count].audio;
         StartCoroutine(DownloadAudio(audioPath));
     }
+
+    private void LoadS_Image ()
+    {
+        string s_ImageUrl_1 = data[0].slots.s_Image[0].s3_value;
+        string s_ImageUrl_2 = data[0].slots.s_Image[1].s3_value;
+        
+        StartCoroutine(DownloadTexture(leftMaterial, s_ImageUrl_1));
+        StartCoroutine(DownloadTexture(rightMaterial, s_ImageUrl_2));
+    }
+
+
+    IEnumerator DownloadTexture(Material mat, string imageURL)
+    {
+        UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageURL);
+        yield return imageRequest.SendWebRequest();
+
+        if (imageRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(imageRequest.error);
+        }
+        else
+        {
+            Texture myTexture = DownloadHandlerTexture.GetContent(imageRequest);
+            imageTexture = myTexture;
+            mat.mainTexture = myTexture;
+        }
+    }
+
 
     IEnumerator DownloadAudio(string URL)
     {
@@ -160,6 +203,7 @@ public class MuseumData
 public class SlotsData
 {
     public List<TrophyData> trophy = new List<TrophyData>();
+    public List<ImageData> s_Image = new List<ImageData>();
 }
 
 [System.Serializable]
@@ -174,6 +218,14 @@ public class TrophyData
     public string model;
     public string audio;
     public string video;
+}
+
+[System.Serializable]
+public class ImageData
+{
+    public int id;
+    public string token;
+    public string s3_value;
 }
 
 
