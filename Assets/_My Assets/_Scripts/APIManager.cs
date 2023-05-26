@@ -43,7 +43,7 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    private void DeserializeDCollection (string jsonString)
+    private void DeserializeDCollection(string jsonString)
     {
         JSONNode root = JSONNode.Parse(jsonString);
 
@@ -51,33 +51,29 @@ public class ApiManager : MonoBehaviour
         {
             id = root["data"][0]["id"],
             name = root["data"][0]["name"],
-            file = root["data"][0]["file"]
+            file = root["data"][0]["file"],
+
+            slots = new SlotsData(),
         });
 
-        int slotsLength = root["data"][0]["slots"].Count;
-
-        for (int i = 0; i < slotsLength; i++)
+        int trophyCount = root["data"][0]["slots"]["trophy"].Count;
+        Debug.Log("T" + trophyCount);
+        for (int i = 0; i < trophyCount; i++)
         {
-            data[0].slots.Add(new SlotsData()
+            data[0].slots.trophy.Add(new TrophyData()
             {
-                id = root["data"][0]["slots"][i]["id"],
-                name = root["data"][0]["slots"][i]["name"]
+                id = root["data"][0]["slots"]["trophy"][i]["id"],
+                name = root["data"][0]["slots"]["trophy"][i]["name"],
+                description = root["data"][0]["slots"]["trophy"][i]["description"],
+
+                model = root["data"][0]["slots"]["trophy"][i]["model"],
+                audio = root["data"][0]["slots"]["trophy"][i]["audio"],
+                video = root["data"][0]["slots"]["trophy"][i]["video"]
             });
-
-            data[0].slots[i].trophy.id = root["data"][0]["slots"][i]["trophy"]["id"];
-            data[0].slots[i].trophy.name = root["data"][0]["slots"][i]["trophy"]["name"];
-            data[0].slots[i].trophy.description = root["data"][0]["slots"][i]["trophy"]["description"];
-
-            data[0].slots[i].trophy.model = root["data"][0]["slots"][i]["trophy"]["model"];
-            data[0].slots[i].trophy.audio = root["data"][0]["slots"][i]["trophy"]["audio"];
-            data[0].slots[i].trophy.video = root["data"][0]["slots"][i]["trophy"]["video"];
         }
 
-        Debug.Log("All data loaded");
-
-        for (int i = 0; i <= 25; i++)
+        for (int i = 0; i < trophyCount; i++)
         {
-            Debug.Log(i);
             SetDataOnUI(i);
         }
     }
@@ -86,12 +82,12 @@ public class ApiManager : MonoBehaviour
     {
         if (count < uiManager.uiTrophyData.Length)
         {
-            uiManager.uiTrophyData[count].name.text = data[0].slots[count].trophy.name;
-            uiManager.uiTrophyData[count].description.text = data[0].slots[count].trophy.description;
+            uiManager.uiTrophyData[count].name.text = data[0].slots.trophy[count].name;
+            uiManager.uiTrophyData[count].description.text = data[0].slots.trophy[count].description;
 
-            uiManager.uiTrophyData[count].modelURL = data[0].slots[count].trophy.model;
-            uiManager.uiTrophyData[count].audioURL = data[0].slots[count].trophy.audio;
-            uiManager.uiTrophyData[count].videoURL = data[0].slots[count].trophy.video;
+            uiManager.uiTrophyData[count].modelURL = data[0].slots.trophy[count].model;
+            uiManager.uiTrophyData[count].audioURL = data[0].slots.trophy[count].audio;
+            uiManager.uiTrophyData[count].videoURL = data[0].slots.trophy[count].video;
         }
     }
 }
@@ -104,16 +100,13 @@ public class MuseumData
     public string name;
     public string file;
 
-    public List<SlotsData> slots = new List<SlotsData>();
+    public SlotsData slots;
 }
 
 [System.Serializable]
 public class SlotsData
 {
-    public int id;
-    public string name;
-
-    public TrophyData trophy = new TrophyData();
+    public List<TrophyData> trophy = new List<TrophyData>();
 }
 
 [System.Serializable]

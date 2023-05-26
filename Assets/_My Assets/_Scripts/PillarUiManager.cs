@@ -16,15 +16,18 @@ public class PillarUiManager : MonoBehaviour
     [SerializeField] string startTag;
 
     [Header("Pannels")]
-    [SerializeField] GameObject questionPannel;
-    [SerializeField] GameObject informationPannel;
+    [SerializeField] GameObject informationPanel;
+    [SerializeField] GameObject videoPanel;
 
     GameObject mainpanel;
 
     private void Start()
     {
-        questionPannel.SetActive(false);
-        informationPannel.SetActive(false);
+        informationPanel = pannelUiAnimation.GetComponent<Transform>().GetChild(0).gameObject;
+        videoPanel= pannelUiAnimation.GetComponent<Transform>().GetChild(1).gameObject;
+        
+        informationPanel.SetActive(false);
+        videoPanel.SetActive(false);
 
         // get all components
         uiManager = UiManager.instance;
@@ -62,7 +65,7 @@ public class PillarUiManager : MonoBehaviour
 
     private void CloseAllPanel ()
     {
-        questionPannel.SetActive(false);
-        informationPannel.SetActive(false);
+        informationPanel.SetActive(false);
+        videoPanel.SetActive(false);
     }
 }
