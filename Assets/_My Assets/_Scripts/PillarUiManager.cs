@@ -21,13 +21,30 @@ public class PillarUiManager : MonoBehaviour
 
     GameObject mainpanel;
 
+    #region Action and function
+    private void OnEnable()
+    {
+        ApiManager.ApiLoaded += OnApiLoaded;
+    }
+
+    public void OnDisable()
+    {
+        ApiManager.ApiLoaded -= OnApiLoaded;
+    }
+
+   private void OnApiLoaded()
+   {
+     videoPanel.SetActive(false);
+   }
+    #endregion
+
     private void Start()
     {
         informationPanel = pannelUiAnimation.GetComponent<Transform>().GetChild(0).gameObject;
         videoPanel= pannelUiAnimation.GetComponent<Transform>().GetChild(1).gameObject;
         
         informationPanel.SetActive(false);
-        videoPanel.SetActive(false);
+        //videoPanel.SetActive(false);
 
         // get all components
         uiManager = UiManager.instance;

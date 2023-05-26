@@ -1,11 +1,16 @@
+using System;
 using SimpleJSON;
 using UnityEngine;
+using TriLibCore.Samples;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using RenderHeads.Media.AVProVideo;
+
 
 public class ApiManager : MonoBehaviour
 {
+    public static Action ApiLoaded;
     public UiManager uiManager;
 
     [SerializeField] private string url;
@@ -14,6 +19,13 @@ public class ApiManager : MonoBehaviour
 
     [SerializeField] private string jsonString;
     [SerializeField] private List<MuseumData> data = new List<MuseumData>();
+
+    [SerializeField] private List<LoadModelFromURLSample> loadModel = new List<LoadModelFromURLSample>();
+    [SerializeField] private List<MediaPlayer> mediaPlayer = new List<MediaPlayer>();
+
+    [SerializeField] private AudioSource desAudioSource;
+
+    public bool apiLoaded = false;
 
     private void Start()
     {
@@ -75,7 +87,13 @@ public class ApiManager : MonoBehaviour
         for (int i = 0; i < trophyCount; i++)
         {
             SetDataOnUI(i);
+            LoadModel(i);
+            SetVideoURL(i);
         }
+
+        SetAudioURL(2);
+
+        ApiLoaded?.Invoke();
     }
 
     private void SetDataOnUI(int count)
@@ -88,6 +106,41 @@ public class ApiManager : MonoBehaviour
             uiManager.uiTrophyData[count].modelURL = data[0].slots.trophy[count].model;
             uiManager.uiTrophyData[count].audioURL = data[0].slots.trophy[count].audio;
             uiManager.uiTrophyData[count].videoURL = data[0].slots.trophy[count].video;
+        }
+    }
+
+    void LoadModel(int count)
+    {
+        loadModel[count].ModelURL = data[0].slots.trophy[count].model;
+        loadModel[count].StartLoading();
+    }
+
+    void SetVideoURL(int count)
+    {
+        string videoPath = data[0].slots.trophy[count].video;
+        mediaPlayer[count].OpenMedia(MediaPathType.AbsolutePathOrURL, videoPath, autoPlay: false);
+    }
+
+    public void SetAudioURL(int count)
+    {
+        string audioPath = data[0].slots.trophy[count].audio;
+        StartCoroutine(DownloadAudio(audioPath));
+    }
+
+    IEnumerator DownloadAudio(string URL)
+    {
+        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(URL, AudioType.WAV);
+        yield return audioRequest.SendWebRequest();
+
+        if (audioRequest.error != null)
+        {
+            Debug.Log(audioRequest.error);
+        }
+        else
+        {
+            AudioClip clip = DownloadHandlerAudioClip.GetContent(audioRequest);
+            desAudioSource.clip = clip;
+            desAudioSource.Play();
         }
     }
 }
