@@ -538,7 +538,7 @@ namespace RenderHeads.Media.AVProVideo
 					}
 					else
 					{
-						Debug.Log("[AVProVideo] No MediaReference specified", this);
+						Debug.LogError("[AVProVideo] No MediaReference specified", this);
 					}
 				}
 				else if (_mediaSource == MediaSource.Path)
@@ -549,7 +549,7 @@ namespace RenderHeads.Media.AVProVideo
 					}
 					else
 					{
-						Debug.Log("[AVProVideo] No file path specified", this);
+						Debug.LogError("[AVProVideo] No file path specified", this);
 					}
 				}
 				
@@ -620,7 +620,7 @@ namespace RenderHeads.Media.AVProVideo
 				}
 				else
 				{
-					Debug.Log("[AVProVideo] No file path specified", this);
+					Debug.LogError("[AVProVideo] No file path specified", this);
 				}
 			}
 			return result;

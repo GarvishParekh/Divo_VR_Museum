@@ -86,23 +86,6 @@ namespace RenderHeads.Media.AVProVideo
 
 		public void ChangeMediaPlayer(MediaPlayer newPlayer)
 		{
-			#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || (!UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS))
-				if (newPlayer != null)
-				{
-					MediaPlayer.OptionsApple options = (MediaPlayer.OptionsApple)newPlayer.GetCurrentPlatformOptions();
-					if (options.audioMode == MediaPlayer.OptionsApple.AudioMode.Unity)
-					{
-						this.enabled = true;
-					}
-					else
-					{
-						Debug.LogWarning("[AVProVideo] Unity audio output is not supported when 'Audio Output Mode' is not set to 'Unity' in the MediaPlayer platform options");
-						this.enabled = false;
-						return;
-					}
-				}
-			#endif
-
 			// When changing the media player, handle event subscriptions
 			if (_mediaPlayer != null)
 			{

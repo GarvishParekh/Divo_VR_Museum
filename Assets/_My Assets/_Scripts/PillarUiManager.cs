@@ -21,22 +21,6 @@ public class PillarUiManager : MonoBehaviour
 
     GameObject mainpanel;
 
-    #region Action and function
-    private void OnEnable()
-    {
-        ApiManager.ApiLoaded += OnApiLoaded;
-    }
-
-    public void OnDisable()
-    {
-        ApiManager.ApiLoaded -= OnApiLoaded;
-    }
-
-   private void OnApiLoaded()
-   {
-     videoPanel.SetActive(false);
-   }
-    #endregion
 
     private void Start()
     {

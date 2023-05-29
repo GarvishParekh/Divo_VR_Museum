@@ -339,6 +339,12 @@ namespace RenderHeads.Media.AVProVideo
 					if (_state.status.IsReadyToPlay() == false)
 					{
 						_playerSettings.audioOutputMode = (Native.AVPPlayerAudioOutputMode)_options.audioMode;
+						if (_options.audioMode == MediaPlayer.OptionsApple.AudioMode.Unity)
+						{
+							_playerSettings.sampleRate = AudioSettings.outputSampleRate;
+							int numBuffers;
+							AudioSettings.GetDSPBufferSize(out _playerSettings.bufferLength, out numBuffers);
+						}
 					}
 					else
 					{

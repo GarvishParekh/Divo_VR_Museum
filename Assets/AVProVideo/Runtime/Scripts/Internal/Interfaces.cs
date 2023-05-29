@@ -933,6 +933,11 @@ namespace RenderHeads.Media.AVProVideo
 			}
 		}
 
+		public override string ToString()
+		{
+			return $"TimeRanges: {{ MinTime: {MinTime}, MaxTime: {MaxTime}, Duration: {Duration}, Count: {Count} }}";
+		}
+
 		internal TimeRanges(TimeRange[] ranges)
 		{
 			_ranges = ranges;

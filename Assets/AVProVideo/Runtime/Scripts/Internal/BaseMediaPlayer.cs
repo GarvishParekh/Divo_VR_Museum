@@ -553,11 +553,11 @@ namespace RenderHeads.Media.AVProVideo
 		public int GetCurrentTimeFrames(float overrideFrameRate = 0f)
 		{
 			int result = 0;
-			float frameRate = (overrideFrameRate > 0f)?overrideFrameRate:GetVideoFrameRate();
+			float frameRate = (overrideFrameRate > 0f) ? overrideFrameRate : GetVideoFrameRate();
 			if (frameRate > 0f)
 			{
 				result = Helper.ConvertTimeSecondsToFrame(GetCurrentTime(), frameRate);
-				result = Mathf.Min(result, GetMaxFrameNumber());
+				result = Mathf.Min(result, GetMaxFrameNumber(overrideFrameRate));
 			}
 			return result;
 		}
@@ -566,7 +566,7 @@ namespace RenderHeads.Media.AVProVideo
 		public int GetDurationFrames(float overrideFrameRate = 0f)
 		{
 			int result = 0;
-			float frameRate = (overrideFrameRate > 0f)?overrideFrameRate:GetVideoFrameRate();
+			float frameRate = (overrideFrameRate > 0f) ? overrideFrameRate : GetVideoFrameRate();
 			if (frameRate > 0f)
 			{
 				result = Helper.ConvertTimeSecondsToFrame(GetDuration(), frameRate);
@@ -577,7 +577,7 @@ namespace RenderHeads.Media.AVProVideo
 		/// <inheritdoc/>
 		public int GetMaxFrameNumber(float overrideFrameRate = 0f)
 		{
-			int result = GetDurationFrames();
+			int result = GetDurationFrames(overrideFrameRate);
 			result = Mathf.Max(0, result - 1);
 			return result;
 		}
