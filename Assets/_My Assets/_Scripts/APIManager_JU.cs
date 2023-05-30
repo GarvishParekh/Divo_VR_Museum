@@ -33,19 +33,7 @@ public class APIManager_JU : MonoBehaviour
 
     private void Start()
     {
-        if (urlType == UrlType.Testing)
-        {
-            URL = URLs.testingURL;
-        }
-        else if (urlType == UrlType.Development)
-        {
-            URL = URLs.developmentURL;
-        }
-        else if (urlType == UrlType.Production)
-        {
-            URL = URLs.productionURL;
-        }
-
+        URL = GetUrlType();
         StartCoroutine(GetRequest(URL));
     }
 
@@ -66,11 +54,23 @@ public class APIManager_JU : MonoBehaviour
             jsonString = request.downloadHandler.text;
             museumDataList = JsonUtility.FromJson<MuseumList>(jsonString);
 
+            // event for reciving and loading api
             APIRecived?.Invoke();
         }
     }
-}
 
+    private string GetUrlType()
+    {
+        if (urlType == UrlType.Testing)
+            return URLs.testingURL;
+        else if (urlType == UrlType.Development)
+            return URLs.developmentURL;
+        else if (urlType == UrlType.Production)
+            return URLs.productionURL;
+        else
+            return null;
+    }
+}
 
 [System.Serializable]
 public class MuseumList

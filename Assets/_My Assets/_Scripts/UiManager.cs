@@ -7,6 +7,11 @@ public class UiManager : MonoBehaviour
     
     public static UiManager instance;
     [SerializeField] GameObject[] allPanels;
+    [SerializeField] GameObject[] allVideoPanels;
+    [SerializeField] GameObject[] allDescriptionPanels;
+
+    [Space]
+    [SerializeField] GameObject loadingPanel;
 
     [Space]
     [SerializeField] private GameObject loadingPlane;
@@ -47,17 +52,50 @@ public class UiManager : MonoBehaviour
 
     private void Awake() => instance = this;
 
+    // close all panel at once
     public void CloseAllpanels()
     {
         for (int i = 0; i < allPanels.Length; i++)
         {
             allPanels[i].SetActive(false);  
+            allVideoPanels[i].SetActive(false);  
+            allDescriptionPanels[i].SetActive(false);  
         }
+    }
+
+    public void _OpenVideoPanel (int _panelIndex)
+    {
+        CloseAllpanels();
+        int panelIndex = _panelIndex - 1;
+
+        allPanels[panelIndex].SetActive(true);
+        allVideoPanels[panelIndex].SetActive(true);
+    }
+
+    public void _OpenDescriptionPanel(int _panelIndex)
+    {
+        CloseAllpanels();
+        int panelIndex = _panelIndex - 1;
+
+        allPanels[panelIndex].SetActive(true);
+        allDescriptionPanels[panelIndex].SetActive(true);
+    }
+
+    // close specific panel
+    public void ClosePanel (int _panelIndex)
+    {
+        int panelIndex = _panelIndex - 1;
+
+        allPanels[panelIndex].SetActive(false);
+        allVideoPanels[panelIndex].SetActive(false);
+        allDescriptionPanels[panelIndex].SetActive(false);
     }
 
     public void B_Close(GameObject desireObject)
         => desireObject.SetActive(false);
 
+    public void CloseLoadingPanel()
+        => loadingPanel.SetActive(false);
 }
 
 [System.Serializable]

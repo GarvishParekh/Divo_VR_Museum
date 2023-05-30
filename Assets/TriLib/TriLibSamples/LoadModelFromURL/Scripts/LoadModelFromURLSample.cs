@@ -45,6 +45,7 @@ namespace TriLibCore.Samples
         private void OnError(IContextualizedError obj)
         {
             Debug.LogError($"An error occurred while loading your Model: {obj.GetInnerException()}");
+            //modelLoaded?.Invoke();
         }
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace TriLibCore.Samples
 
             loadedModel.transform.SetParent(dummyModel);
             loadedModel.transform.localPosition = new Vector3(0, 0, 0);
+            loadedModel.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
 
             modelLoaded?.Invoke();
         }
