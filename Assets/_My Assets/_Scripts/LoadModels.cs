@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class LoadModels : MonoBehaviour
 {
-
     APIManager_JU apiManager;
 
     [Space]
@@ -53,8 +52,8 @@ public class LoadModels : MonoBehaviour
             modelLoadingScripts[modelLoaded].StartLoading();
         else
         {
-            UiManager.instance.CloseLoadingPanel();
             Debug.Log("ALL MODELS LOADED!!!");
+            UiManager.instance.CloseLoadingPanel();
             return;
         }
     }

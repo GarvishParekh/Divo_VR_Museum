@@ -101,6 +101,7 @@ public class SlotsImages
 public class Slots
 {
     public List<SlotsImages> image = new List<SlotsImages>();
+    public List<SlotsAudio> audio = new List<SlotsAudio>();
     public List<SlotsTrophy> trophy = new List<SlotsTrophy>();
 }
 
@@ -116,6 +117,13 @@ public class SlotsTrophy
     public string model;
     public string audio;
     public string video;
-};
+}
+
+[System.Serializable]
+public class SlotsAudio
+{
+    public int id;
+    public string s3_value;
+}
 
 

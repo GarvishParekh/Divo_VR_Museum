@@ -50,11 +50,15 @@ public class ElectricParticleSpawner : MonoBehaviour
     private void Update()
     {
         if (playerAction == HandsAction.notInPillars)
+        {
+            OVRInput.SetControllerVibration(0f, 0f, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration(0f, 0f, OVRInput.Controller.LTouch);
             return;
+        }
 
         ParticleSpawner();
-        OVRInput.SetControllerVibration(.5f, .4f, OVRInput.Controller.RTouch);
-        OVRInput.SetControllerVibration(.5f, .4f, OVRInput.Controller.LTouch);
+        OVRInput.SetControllerVibration(.1f, .5f, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration(.1f, .5f, OVRInput.Controller.LTouch);
     }
 
     private void ParticleSpawner ()

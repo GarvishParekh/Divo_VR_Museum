@@ -1,10 +1,13 @@
 using TMPro;
+using System;
 using UnityEngine;
 using TriLibCore.Samples;
 
 public class UiManager : MonoBehaviour
 {
-    
+    public static Action VideoPlaying;
+    public static Action VideoExit;
+
     public static UiManager instance;
     [SerializeField] GameObject[] allPanels;
     [SerializeField] GameObject[] allVideoPanels;
@@ -14,7 +17,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject loadingPanel;
 
     [Space]
-    [SerializeField] private GameObject loadingPlane;
     [SerializeField] private OVRPlayerController playerController;
     [SerializeField] private int modelCount = 0;
 
@@ -23,12 +25,15 @@ public class UiManager : MonoBehaviour
 
     public UITrophyData[] uiTrophyData;
 
+    private void Awake() => instance = this;
+
     private void Start()
     {
         mat1.renderQueue = 2999;
         mat2.renderQueue = 2999;
-    }
 
+        VideoExit?.Invoke();
+    }
 
     private void OnEnable()
     {
@@ -45,31 +50,36 @@ public class UiManager : MonoBehaviour
         modelCount++;
         if (modelCount >= 25)
         {
-            loadingPlane.SetActive(false);
+            //loadingPlane.SetActive(false);
             playerController.enabled = true;
         }
     }
-
-    private void Awake() => instance = this;
 
     // close all panel at once
     public void CloseAllpanels()
     {
         for (int i = 0; i < allPanels.Length; i++)
         {
-            allPanels[i].SetActive(false);  
             allVideoPanels[i].SetActive(false);  
             allDescriptionPanels[i].SetActive(false);  
         }
+
+        VideoExit?.Invoke();
     }
 
     public void _OpenVideoPanel (int _panelIndex)
     {
+        Debug.Log("Closing all panels");
         CloseAllpanels();
         int panelIndex = _panelIndex - 1;
 
+        allPanels[panelIndex].SetActive(false);
         allPanels[panelIndex].SetActive(true);
+
         allVideoPanels[panelIndex].SetActive(true);
+        Debug.Log("Panel opened");
+
+        VideoPlaying?.Invoke();
     }
 
     public void _OpenDescriptionPanel(int _panelIndex)
@@ -77,8 +87,12 @@ public class UiManager : MonoBehaviour
         CloseAllpanels();
         int panelIndex = _panelIndex - 1;
 
+        allPanels[panelIndex].SetActive(false);
         allPanels[panelIndex].SetActive(true);
+
         allDescriptionPanels[panelIndex].SetActive(true);
+
+        VideoPlaying?.Invoke(); 
     }
 
     // close specific panel
@@ -95,7 +109,10 @@ public class UiManager : MonoBehaviour
         => desireObject.SetActive(false);
 
     public void CloseLoadingPanel()
-        => loadingPanel.SetActive(false);
+    {
+        loadingPanel.SetActive(false);
+        playerController.enabled = true;
+    }
 }
 
 [System.Serializable]

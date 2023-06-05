@@ -12,9 +12,15 @@ public class MuseumImageLoader : MonoBehaviour
     [SerializeField] private string imageURL = "";
     [SerializeField] private Texture myTexture;
 
+    [Space]
+    [Header("Time line components")]
+    [SerializeField] private string timeLineURL;
+    [SerializeField] private Material timeLineMat;
+
     private void Start()
     {
         apiManager = APIManager_JU.instance;
+        GetTimeLineURL();
     }
 
     private void OnEnable()
@@ -52,5 +58,11 @@ public class MuseumImageLoader : MonoBehaviour
             myTexture = ((DownloadHandlerTexture)imageRquest.downloadHandler).texture;
             materialList[matIndex].SetTexture("_MainTex", myTexture);
         }
+    }
+
+    private void GetTimeLineURL ()
+    {
+        timeLineURL = apiManager.museumDataList.data[0].slots.image[27].s3_value;
+        StartCoroutine(GetTexture(timeLineURL, 28));
     }
 }

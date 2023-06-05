@@ -19,7 +19,6 @@ public class VideoPlayer : MonoBehaviour
     [Space]
     [Header("Testing")]
     [SerializeField] private int videoIndex = 0;
-
     [SerializeField] private Vector3 offsetPosition = new Vector3(0, 0 - 0.5f);
 
     private void Start()
@@ -58,23 +57,12 @@ public class VideoPlayer : MonoBehaviour
             Debug.Log("Index is out of range");
         }
 
-        CloseAllVideoPanel();
-
         // set the video ui position
-        pillarPosition[_videoIndex].gameObject.SetActive(true);
         mediaPlayerUI.SetParent(pillarPosition[_videoIndex]);
         mediaPlayerUI.localPosition = offsetPosition;
 
         string videoPath = videoURL[_videoIndex];
         mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, videoPath, autoPlay: true);
-    }
-
-    private void CloseAllVideoPanel ()
-    {
-        for (int i = 0; i < pillarPosition.Length; i++)
-        {
-            pillarPosition[i].gameObject.SetActive(false);
-        }
     }
 
     public void VideoExitButton ()
