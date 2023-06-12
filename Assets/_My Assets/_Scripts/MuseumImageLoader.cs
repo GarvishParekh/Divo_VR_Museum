@@ -10,7 +10,8 @@ public class MuseumImageLoader : MonoBehaviour
     [SerializeField] private List<Material> materialList = new List<Material>();
 
     [SerializeField] private string imageURL = "";
-    [SerializeField] private Texture myTexture;
+    [SerializeField] private Texture2D myTexture;
+    [SerializeField] private Texture2D loadedTexture;
 
     [Space]
     [Header("Time line components")]
@@ -20,7 +21,6 @@ public class MuseumImageLoader : MonoBehaviour
     private void Start()
     {
         apiManager = APIManager_JU.instance;
-        GetTimeLineURL();
     }
 
     private void OnEnable()
@@ -35,13 +35,23 @@ public class MuseumImageLoader : MonoBehaviour
 
     private void OnRecivingApi()
     {
-        int listLenght = apiManager.museumDataList.data[0].slots.image.Count;
-
-        for (int i = 0; i < materialList.Count; i++)
+        int listLenght = materialList.Count;
+        
+        for (int i = 0; i < listLenght; i++)
         {
-            string imageURL = apiManager.museumDataList.data[0].slots.image[i].s3_value;
-            StartCoroutine(GetTexture(imageURL, i));
+            string currentToken = GetToken(i);
+            for (int j = 0; j < listLenght; j++)
+            {
+                if (currentToken == apiManager.museumDataList.data[0].slots.image[j].token)
+                {
+                    string imageURL = apiManager.museumDataList.data[0].slots.image[j].s3_value;
+                    StartCoroutine(GetTexture(imageURL, j));
+                }
+                else
+                    Debug.Log("Token not matched");
+            }
         }
+        GetTimeLineURL();
     }
 
     IEnumerator GetTexture(string _imageURL, int matIndex)
@@ -54,15 +64,24 @@ public class MuseumImageLoader : MonoBehaviour
         }
         else
         {
-            Debug.Log("SETTING IMAGE");
             myTexture = ((DownloadHandlerTexture)imageRquest.downloadHandler).texture;
-            materialList[matIndex].SetTexture("_MainTex", myTexture);
+
+            loadedTexture = new Texture2D(myTexture.width, myTexture.height, myTexture.format, true);
+            loadedTexture.anisoLevel = 16;
+            loadedTexture.LoadImage(imageRquest.downloadHandler.data);
+
+            materialList[matIndex].SetTexture("_MainTex", loadedTexture);
         }
     }
 
     private void GetTimeLineURL ()
     {
         timeLineURL = apiManager.museumDataList.data[0].slots.image[27].s3_value;
-        StartCoroutine(GetTexture(timeLineURL, 28));
+        StartCoroutine(GetTexture(timeLineURL, 27));
+    }
+
+    private string GetToken (int _index)
+    {
+        return apiManager.museumDataList.data[0].slots.image[_index].token;
     }
 }

@@ -5,6 +5,10 @@ using TriLibCore.Samples;
 
 public class UiManager : MonoBehaviour
 {
+    [SerializeField] LoadSound loadSound;
+
+    [SerializeField] AudioPlayPause[] playPause;
+    public static Action AudioPlaying;
     public static Action VideoPlaying;
     public static Action VideoExit;
 
@@ -19,6 +23,14 @@ public class UiManager : MonoBehaviour
     [Space]
     [SerializeField] private OVRPlayerController playerController;
     [SerializeField] private int modelCount = 0;
+
+    [Header("Play pause button image")]
+    public Sprite playButtonImage;
+    public Sprite pauseButtonImage;
+
+    [Space]
+    public Sprite muteButtonImage;
+    public Sprite unMuteButtonImage;
 
     public Material mat1;
     public Material mat2;
@@ -69,6 +81,7 @@ public class UiManager : MonoBehaviour
 
     public void _OpenVideoPanel (int _panelIndex)
     {
+        loadSound._OnCloseAudio();
         Debug.Log("Closing all panels");
         CloseAllpanels();
         int panelIndex = _panelIndex - 1;
@@ -84,6 +97,7 @@ public class UiManager : MonoBehaviour
 
     public void _OpenDescriptionPanel(int _panelIndex)
     {
+        //loadSound._OnCloseAudio();
         CloseAllpanels();
         int panelIndex = _panelIndex - 1;
 
@@ -92,7 +106,8 @@ public class UiManager : MonoBehaviour
 
         allDescriptionPanels[panelIndex].SetActive(true);
 
-        VideoPlaying?.Invoke(); 
+        VideoPlaying?.Invoke();
+        AudioPlaying?.Invoke();
     }
 
     // close specific panel
@@ -111,11 +126,11 @@ public class UiManager : MonoBehaviour
     public void CloseLoadingPanel()
     {
         loadingPanel.SetActive(false);
-        playerController.enabled = true;
+        playerController.Acceleration = 0.045f;
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class UITrophyData
 {
     public TMP_Text name;

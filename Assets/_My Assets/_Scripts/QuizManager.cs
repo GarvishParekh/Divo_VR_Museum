@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
@@ -7,6 +8,22 @@ using System.Collections.Generic;
 public class QuizManager : MonoBehaviour
 {
     [SerializeField] string playerTag;
+
+    [Space]
+    [Header("Quiz API information")]
+    [SerializeField] private string token;
+    [SerializeField] private string contentType;
+    [Space]
+    [SerializeField] private string questionJsonString;
+
+    [Header("ID for form")]
+    [SerializeField] private string postURL;
+    [SerializeField] List<int> questionID = new List<int>();
+    [SerializeField] List<int> answerID = new List<int>();
+
+    [Space]
+    [SerializeField] string answerJson;
+    [SerializeField] QuizData quizData;
 
     [Header ("Pannel components")]
     [SerializeField] Animator quizPanelAnimation;
@@ -25,14 +42,21 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private TMP_Text T_quizOption2;
     [SerializeField] private TMP_Text T_quizOption3;
     [SerializeField] private TMP_Text T_quizOption4;
+    
+    [Space]
+    [SerializeField] private int correctAnswer = 0;
+    [SerializeField] private TMP_Text T_score;
+    [SerializeField] private GameObject scorePanel;
+
+    [Space]
+    [SerializeField] private Toggle[] optionToggle;
+    [SerializeField] private TMP_Text[] optionText;
+
+    [SerializeField] private Color greenColor;
+    [SerializeField] private Color redColor;
 
     [SerializeField] private int questionIndex = 0;
-    [Space]
-    [Header("Quiz API information")]
-    [SerializeField] private string token;
-    [SerializeField] private string contentType;
-    [Space]
-    [SerializeField] private string jsonString;
+    
     private string URL;
 
     [Space]
@@ -52,8 +76,23 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
+        ResetOptionMarks();
         URL = URLs.testingQuizURL;
         StartCoroutine(GetQuizRequest(URL));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown (KeyCode.P))
+        {
+            OptionSelected(1);
+            _NextQuestion();
+        }
+        else if (Input.GetKeyDown (KeyCode.U))
+        {
+            Debug.LogError("API Sent");
+            _SendAnswers();
+        }
     }
 
     IEnumerator GetQuizRequest(string url)
@@ -70,21 +109,72 @@ public class QuizManager : MonoBehaviour
         }
         else
         {
-            jsonString = quizRequest.downloadHandler.text;
-            questionData = JsonUtility.FromJson<QuestionData>(jsonString);
+            questionJsonString = quizRequest.downloadHandler.text;
+            questionData = JsonUtility.FromJson<QuestionData>(questionJsonString);
 
             SetQuizUI(questionIndex);
         }
     }
 
-    private void Update()
+    IEnumerator UploadAnswers (string url)
     {
-        if (Input.GetKeyDown (KeyCode.P))
+        WWWForm answerForm = new WWWForm();
+
+        /*for (int i = 0; i < questionID.Count; i++)
+        {*/
+            answerForm.AddField($"quiz_data[0][question_id]", 46);
+            answerForm.AddField($"quiz_data[0][answer_id]", 48);
+        /*}*/
+
+        Debug.LogError($"Question ID: {questionID[0]}, Answer ID: {answerID[0]}");
+
+        UnityWebRequest request = UnityWebRequest.Post(url, answerForm);
+        request.downloadHandler = new DownloadHandlerBuffer();
+
+        request.SetRequestHeader("Authorization", token);
+        Debug.LogError(token);
+        request.SetRequestHeader("Content-Type", contentType);
+        //request.SetRequestHeader("Accept", contentType);
+        Debug.LogError(contentType);
+        
+        yield return request.SendWebRequest();
+
+        if (request.error != null)
         {
-            _NextQuestion();
+            Debug.LogError(request.error);
+        }
+        else 
+        {
+            if (answerForm.data.Length == 0)
+            {
+                Debug.LogError("FORM IS NULL");
+            }
+
+            answerJson = request.downloadHandler.text;
+            Debug.LogError(answerJson);
+            Debug.LogError(request.responseCode);
+
+            //quizData = JsonUtility.FromJson<QuizData>(answerJson);
+
+            T_score.text = $"Your score is: <color=#F3A101>{correctAnswer}";
         }
     }
 
+    public void OptionSelected (int _optionIndex)
+    {
+        if (questionData.data[questionIndex].answers[_optionIndex].is_correct == "2")
+        {
+            correctAnswer++;
+            T_score.text = $"Your score is: <color=#F3A101>{correctAnswer}";
+            optionText[_optionIndex].color = greenColor;
+        }
+        else
+        {
+            optionText[_optionIndex].color = redColor;
+        }
+        questionID.Add(questionData.data[questionIndex].id);
+        answerID.Add(questionData.data[questionIndex].answers[_optionIndex].id);
+    }
 
     private void SetQuizUI(int _index)
     {
@@ -96,17 +186,56 @@ public class QuizManager : MonoBehaviour
         T_quizOption4.text = questionData.data[_index].answers[3].answer;
     }
 
-    public void _NextQuestion()
+    IEnumerator NextQuestion ()
     {
-        if (questionIndex < questionData.data.Count)
+        for (int i = 0; i < optionToggle.Length; i++)
+        {
+            optionToggle[i].interactable = false;
+        }
+
+        yield return new WaitForSeconds(0.4f);
+
+        if (questionIndex < 24)
         {
             questionIndex++;
             SetQuizUI(questionIndex);
+            ResetOptionMarks();
         }
         else
         {
             quizCanvas.SetActive(false);
+            scorePanel.SetActive(true);
         }
+
+        for (int i = 0; i < optionToggle.Length; i++)
+        {
+            optionToggle[i].interactable = true;
+            optionText[i].color = Color.white;
+        }
+    }
+    public void _NextQuestion()
+    {
+        StartCoroutine(nameof(NextQuestion));
+    }
+
+    private void ResetOptionMarks()
+    {
+        for (int i = 0; i < optionToggle.Length; i++)
+        {
+            optionToggle[i].graphic.enabled = false;
+        }
+    }
+
+    public void _SkipButton ()
+    {
+        quizCanvas.SetActive(false);
+        scorePanel.SetActive(true);
+    }
+
+    public void _SendAnswers()
+    {
+        StartCoroutine(UploadAnswers(postURL));
+        scorePanel.SetActive(true);
     }
 }
 
@@ -130,6 +259,28 @@ public class Data
 [System.Serializable]
 public class Options
 {
+    public int id;
     public string answer;
+    public string is_correct;
 }
+
+[System.Serializable]
+public class QuizData
+{
+    public string message;
+    public MainData data;
+}
+
+[System.Serializable]
+public class MainData
+{
+    public int questions;
+    public int correct;
+}
+
+
+public class AnswerData
+{
+}
+
 

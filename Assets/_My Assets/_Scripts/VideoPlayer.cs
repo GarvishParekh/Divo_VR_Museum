@@ -38,13 +38,25 @@ public class VideoPlayer : MonoBehaviour
         APIManager_JU.APIRecived -= OnApiRecived;
     }
 
-    private void OnApiRecived ()
+    private void OnApiRecived()
     {
         int listLenght = apiManager.museumDataList.data[0].slots.trophy.Count;
         for (int i = 0; i < listLenght; i++)
         {
-            videoURL.Add(apiManager.museumDataList.data[0].slots.trophy[i].video);
+            string currentToken = GetToken(i);
+            for (int j = 0; j < listLenght; j++)
+            {
+                if (currentToken == apiManager.museumDataList.data[0].slots.trophy[j].token)
+                {
+                    videoURL.Add(apiManager.museumDataList.data[0].slots.trophy[j].video);
+                }
+            }
         }
+    }
+
+    private string GetToken(int _index)
+    {
+        return TokenInformation.instance.trophyToken[_index];
     }
 
     #endregion

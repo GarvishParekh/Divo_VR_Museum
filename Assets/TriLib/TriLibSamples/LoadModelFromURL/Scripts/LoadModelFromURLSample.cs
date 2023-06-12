@@ -79,8 +79,9 @@ namespace TriLibCore.Samples
             loadedModel = assetLoaderContext.RootGameObject;
 
             loadedModel.transform.SetParent(dummyModel);
-            loadedModel.transform.localPosition = new Vector3(0, 0, 0);
             loadedModel.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            loadedModel.transform.localPosition = new Vector3(0, 0, 0);
+
 
             modelLoaded?.Invoke();
         }

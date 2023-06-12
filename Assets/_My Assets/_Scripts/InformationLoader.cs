@@ -21,12 +21,30 @@ public class InformationLoader : MonoBehaviour
     {
         APIManager_JU.APIRecived -= OnApiRecived;
     }
-    private void OnApiRecived ()
+    private void OnApiRecived()
     {
         for (int i = 0; i < T_information.Count; i++)
         {
-            T_name[i].text = apiManager.museumDataList.data[0].slots.trophy[i].name;
-            T_information[i].text = apiManager.museumDataList.data[0].slots.trophy[i].description;
+
         }
+
+        int listLenght = T_information.Count;
+        for (int i = 0; i < listLenght; i++)
+        {
+            string currentToken = GetToken(i);
+            for (int j = 0; j < listLenght; j++)
+            {
+                if (currentToken == apiManager.museumDataList.data[0].slots.trophy[j].token)
+                {
+                    T_name[i].text = apiManager.museumDataList.data[0].slots.trophy[j].name;
+                    T_information[i].text = apiManager.museumDataList.data[0].slots.trophy[j].description;
+                }
+            }
+        }
+    }
+
+    private string GetToken(int _index)
+    {
+        return TokenInformation.instance.trophyToken[_index];
     }
 }

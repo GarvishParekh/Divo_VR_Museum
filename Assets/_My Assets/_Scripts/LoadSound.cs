@@ -21,7 +21,6 @@ public class LoadSound : MonoBehaviour
     [Range(0, 0.5f)]
     [SerializeField] private float lowVolume;
 
-
     private void Start()
     {
         apiManager = APIManager_JU.instance;
@@ -62,14 +61,33 @@ public class LoadSound : MonoBehaviour
             StartCoroutine(DownloadDesAudios(audioUrls[i], i));
         }
 
+        for (int i = 0; i < listLength; i++)
+        {
+            string currentToken = GetToken(i);
+
+            for (int j = 0; j < listLength; j++)
+            {
+                if (currentToken == apiManager.museumDataList.data[0].slots.trophy[j].token)
+                {
+                    audioUrls.Add(apiManager.museumDataList.data[0].slots.trophy[j].audio);
+                    StartCoroutine(DownloadDesAudios(audioUrls[j], j));
+                }
+            }
+        }
+
         bgMusicURL = apiManager.museumDataList.data[0].slots.audio[0].s3_value;
 
         SetAndPlayBgMusicFuntion();
     }
 
+    private string GetToken(int _index)
+    {
+        return TokenInformation.instance.imageToken[_index];
+    }
+
     private IEnumerator DownloadDesAudios(string _audioUrl, int _index)
     {
-        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.WAV);
+        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.MPEG);
         yield return audioRequest.SendWebRequest();
 
         if (audioRequest.error != null)
@@ -107,6 +125,7 @@ public class LoadSound : MonoBehaviour
 
     public void _PlayAudio (int _audioIndex)
     {
+        _OnCloseAudio();
         int index = _audioIndex - 1;
 
         if (audioSources[index].clip != null)
