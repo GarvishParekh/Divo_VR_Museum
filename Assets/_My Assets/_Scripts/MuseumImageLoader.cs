@@ -47,8 +47,6 @@ public class MuseumImageLoader : MonoBehaviour
                     string imageURL = apiManager.museumDataList.data[0].slots.image[j].s3_value;
                     StartCoroutine(GetTexture(imageURL, j));
                 }
-                else
-                    Debug.Log("Token not matched");
             }
         }
         GetTimeLineURL();
@@ -82,6 +80,6 @@ public class MuseumImageLoader : MonoBehaviour
 
     private string GetToken (int _index)
     {
-        return apiManager.museumDataList.data[0].slots.image[_index].token;
+        return TokenInformation.instance.imageToken[_index];
     }
 }

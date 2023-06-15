@@ -71,25 +71,19 @@ public class LoadModels : MonoBehaviour
                 {
                     modelURLs.Add(apiManager.museumDataList.data[0].slots.trophy[j].model);
                     modelLoadingScripts[i].ModelURL = modelURLs[j];
-                    Debug.Log("TOKEN NUMBER: " + j);
-                }
-                else
-                {
-                    Debug.Log("Token Incorrect");
+                    //Debug.Log("TOKEN NUMBER: " + j);
                 }
             }
         }
 
         // start loading model on reciving the api's
         modelLoadingScripts[modelLoaded].StartLoading();
-        Debug.Log("START LOADING MODEL");
     }
 
     private void OnModelLoaded ()
     {
         modelLoaded++;
         percentage = (modelLoaded * 100) / 25;
-        Debug.Log(percentage);
         loadingText.text = $"Loading..{percentage}%";
         if (modelLoaded < totalModel)
             modelLoadingScripts[modelLoaded].StartLoading();

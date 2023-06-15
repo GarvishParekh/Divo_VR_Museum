@@ -26,19 +26,19 @@ public class LoadSound : MonoBehaviour
         apiManager = APIManager_JU.instance;
     }
 
-    private void OnEnable()
-    {
-        APIManager_JU.APIRecived += OnRecivingAPi;
-        UiManager.VideoPlaying += OnVideoPlaying;
-        UiManager.VideoExit += OnVideoExit;
-    }
-
-    private void OnDisable()
-    {
-        APIManager_JU.APIRecived -= OnRecivingAPi;
-        UiManager.VideoPlaying -= OnVideoPlaying;
-        UiManager.VideoExit -= OnVideoExit;
-    }
+   private void OnEnable()
+   {
+       APIManager_JU.APIRecived += OnRecivingAPi;
+       UiManager.VideoPlaying += OnVideoPlaying;
+       UiManager.VideoExit += OnVideoExit;
+   }
+   
+   private void OnDisable()
+   {
+       APIManager_JU.APIRecived -= OnRecivingAPi;
+       UiManager.VideoPlaying -= OnVideoPlaying;
+       UiManager.VideoExit -= OnVideoExit;
+   }
 
     private void OnVideoPlaying ()
     {
@@ -47,14 +47,13 @@ public class LoadSound : MonoBehaviour
 
     private void OnVideoExit()
     {
-        Debug.Log("CHANGE THE VOLUME!!!!!!!!!!!!!");
+        //Debug.Log("CHANGE THE VOLUME!!!!!!!!!!!!!");
         bgMusicAudioSource.volume = normalVolume;
     }
 
     private void OnRecivingAPi()
     {
         int listLength = apiManager.museumDataList.data[0].slots.trophy.Count;
-        Debug.Log(listLength);
         for (int i = 0; i < 25; i++)
         {
             audioUrls.Add(apiManager.museumDataList.data[0].slots.trophy[i].audio);
@@ -92,7 +91,7 @@ public class LoadSound : MonoBehaviour
 
         if (audioRequest.error != null)
         {
-            Debug.LogError(audioRequest.error);
+            //Debug.LogError(audioRequest.error);
         }
         else
         {
@@ -103,7 +102,7 @@ public class LoadSound : MonoBehaviour
     
     private IEnumerator SetAndPlayBgMusic(string _audioUrl)
     {
-        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.MPEG);
+        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.UNKNOWN);
         yield return audioRequest.SendWebRequest();
 
         if (audioRequest.error != null)

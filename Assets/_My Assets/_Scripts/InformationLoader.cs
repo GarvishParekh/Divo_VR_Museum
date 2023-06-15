@@ -23,11 +23,6 @@ public class InformationLoader : MonoBehaviour
     }
     private void OnApiRecived()
     {
-        for (int i = 0; i < T_information.Count; i++)
-        {
-
-        }
-
         int listLenght = T_information.Count;
         for (int i = 0; i < listLenght; i++)
         {

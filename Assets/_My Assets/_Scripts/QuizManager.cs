@@ -120,22 +120,14 @@ public class QuizManager : MonoBehaviour
     {
         WWWForm answerForm = new WWWForm();
 
-        /*for (int i = 0; i < questionID.Count; i++)
-        {*/
-            answerForm.AddField($"quiz_data[0][question_id]", 46);
-            answerForm.AddField($"quiz_data[0][answer_id]", 48);
-        /*}*/
-
-        Debug.LogError($"Question ID: {questionID[0]}, Answer ID: {answerID[0]}");
-
+        answerForm.AddField($"quiz_data[0][question_id]", 46);
+        answerForm.AddField($"quiz_data[0][answer_id]", 48);
+        
         UnityWebRequest request = UnityWebRequest.Post(url, answerForm);
         request.downloadHandler = new DownloadHandlerBuffer();
 
         request.SetRequestHeader("Authorization", token);
-        Debug.LogError(token);
         request.SetRequestHeader("Content-Type", contentType);
-        //request.SetRequestHeader("Accept", contentType);
-        Debug.LogError(contentType);
         
         yield return request.SendWebRequest();
 
@@ -151,8 +143,6 @@ public class QuizManager : MonoBehaviour
             }
 
             answerJson = request.downloadHandler.text;
-            Debug.LogError(answerJson);
-            Debug.LogError(request.responseCode);
 
             //quizData = JsonUtility.FromJson<QuizData>(answerJson);
 
@@ -162,15 +152,18 @@ public class QuizManager : MonoBehaviour
 
     public void OptionSelected (int _optionIndex)
     {
+        optionToggle[_optionIndex].graphic.enabled = true;
         if (questionData.data[questionIndex].answers[_optionIndex].is_correct == "2")
         {
             correctAnswer++;
             T_score.text = $"Your score is: <color=#F3A101>{correctAnswer}";
             optionText[_optionIndex].color = greenColor;
+            optionToggle[_optionIndex].graphic.color = greenColor;
         }
         else
         {
             optionText[_optionIndex].color = redColor;
+            optionToggle[_optionIndex].graphic.color = redColor;
         }
         questionID.Add(questionData.data[questionIndex].id);
         answerID.Add(questionData.data[questionIndex].answers[_optionIndex].id);
@@ -203,8 +196,7 @@ public class QuizManager : MonoBehaviour
         }
         else
         {
-            quizCanvas.SetActive(false);
-            scorePanel.SetActive(true);
+            _SkipButton();
         }
 
         for (int i = 0; i < optionToggle.Length; i++)
@@ -230,12 +222,20 @@ public class QuizManager : MonoBehaviour
     {
         quizCanvas.SetActive(false);
         scorePanel.SetActive(true);
+
+        Invoke(nameof(CloseScorePanel), 10);
     }
 
     public void _SendAnswers()
     {
         StartCoroutine(UploadAnswers(postURL));
         scorePanel.SetActive(true);
+        Invoke(nameof(CloseScorePanel), 10);
+    }
+
+    private void CloseScorePanel()
+    { 
+        scorePanel.SetActive(false);
     }
 }
 

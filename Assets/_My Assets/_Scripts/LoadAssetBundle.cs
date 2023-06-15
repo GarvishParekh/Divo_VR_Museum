@@ -1,67 +1,61 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEditor;
 
 public class LoadAssetBundle : MonoBehaviour
 {
-    APIManager_JU apiManager;
-    [SerializeField] private string lightMapURL;
     [SerializeField] private string bundleURL;
-    [SerializeField] private string assetName;
+
+    [Space]
+    [SerializeField] private string modelName;
+    [SerializeField] private string lightMapName;
+
+    [Space]
+    [SerializeField] private GameObject museumModel;
+    [SerializeField] private Texture2D lightMap;
+
+    [Space]
+
+    [Space]
     [SerializeField] private Transform spawnPoint;
+    public LightmapData lightmapData;
 
     private void Start()
     {
-        //apiManager = APIManager_JU.instance;
-        OnRecivingAPI();
+        StartCoroutine(StartLoadingBundle(bundleURL, modelName, lightMapName));
     }
 
-    //private void OnEnable()
-    //{
-    //    APIManager_JU.APIRecived += OnRecivingAPI;
-    //}
-    //
-    //private void OnDisable()
-    //{
-    //    APIManager_JU.APIRecived -= OnRecivingAPI;
-    //}
-
-    void OnRecivingAPI()
+    IEnumerator StartLoadingBundle (string _bundleURL, string _modelName, string _lightMapName)
     {
-        //bundleURL = apiManager.museumDataList.data[0].file;
-        StartCoroutine(LoadAssetBundleIntoScene(bundleURL, assetName));
-    }
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(_bundleURL);
+        yield return request.SendWebRequest();
 
-    IEnumerator LoadAssetBundleIntoScene(string bundleUrl, string assetName)
-    {
-        UnityWebRequest bundleRequest = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
-        yield return bundleRequest.SendWebRequest();
-
-        if (bundleRequest.error != null)
+        if (request.error != null)
         {
-            Debug.Log(bundleRequest.error);
+            Debug.LogError(request.error);
         }
         else
         {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(bundleRequest);
-            if (bundle != null)
+            AssetBundle assetBundle = DownloadHandlerAssetBundle.GetContent(request);
+            if (assetBundle != null)
             {
-                Instantiate(bundle.LoadAsset(assetName), spawnPoint.position, Quaternion.identity);
-                bundle.Unload(false);
+                museumModel = (GameObject)Instantiate(assetBundle.LoadAsset(_modelName), spawnPoint.position, Quaternion.identity);
+
+                if (museumModel != null)
+                {
+                    museumModel.SetActive(true);
+                    Debug.Log("Light map loaded");
+
+                    lightMap = (Texture2D)assetBundle.LoadAsset(_lightMapName);
+                    lightmapData.lightmapDir = lightMap;
+                }
+                assetBundle.Unload(false);
+            }
+            else if (assetBundle == null)
+            {
+                Debug.LogError("asset bundle empty");
             }
         }
-    }
-
-    IEnumerator LoadB(string bundleUrl, string assetName)
-    {
-        var bundleRequest = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
-        yield return bundleRequest.SendWebRequest();
-
-        // Get an asset from the bundle and instantiate it.
-        AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(bundleRequest);
-        var loadAsset = bundle.LoadAssetAsync<GameObject>(assetName);
-        yield return loadAsset;
-
-        Instantiate(loadAsset.asset);
     }
 }

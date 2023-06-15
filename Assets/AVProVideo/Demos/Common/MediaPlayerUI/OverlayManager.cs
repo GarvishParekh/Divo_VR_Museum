@@ -94,7 +94,7 @@ namespace RenderHeads.Media.AVProVideo.Demos.UI
 					keyword = KeywordPlay;
 					break;
 				case Feedback.Pause:
-					keyword = KeywordPause;
+                    keyword = KeywordPause;
 					break;
 				case Feedback.SeekBack:
 					keyword = KeywordSeekBack;

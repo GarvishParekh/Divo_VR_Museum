@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using RenderHeads.Media.AVProVideo;
+using UnityEngine.UI;
 
 public class VideoPlayer : MonoBehaviour
 {
     APIManager_JU apiManager;
 
     [Header ("Media player information")]
+    [SerializeField] private Image buffringImage;
     [SerializeField] MediaPlayer mediaPlayer;
     [SerializeField] Transform mediaPlayerUI;
 
@@ -36,6 +38,18 @@ public class VideoPlayer : MonoBehaviour
     private void OnDisable()
     {
         APIManager_JU.APIRecived -= OnApiRecived;
+    }
+
+    private void Update()
+    {
+        if (mediaPlayer.Control.IsPlaying() == true)
+        {
+            buffringImage.enabled = false;
+        }
+        else
+        {
+            buffringImage.enabled = true;
+        }
     }
 
     private void OnApiRecived()
