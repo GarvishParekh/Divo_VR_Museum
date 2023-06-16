@@ -57,6 +57,13 @@ public class UiManager : MonoBehaviour
         LoadModelFromURLSample.modelLoaded -= OnModelLoaded;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown (KeyCode.L))
+        {
+        }
+    }
+
     private void OnModelLoaded ()
     {
         modelCount++;

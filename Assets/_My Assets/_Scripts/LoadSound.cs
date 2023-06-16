@@ -53,6 +53,7 @@ public class LoadSound : MonoBehaviour
 
     private void OnRecivingAPi()
     {
+
         int listLength = apiManager.museumDataList.data[0].slots.trophy.Count;
         for (int i = 0; i < 25; i++)
         {
@@ -75,7 +76,6 @@ public class LoadSound : MonoBehaviour
         }
 
         bgMusicURL = apiManager.museumDataList.data[0].slots.audio[0].s3_value;
-
         SetAndPlayBgMusicFuntion();
     }
 
@@ -102,7 +102,7 @@ public class LoadSound : MonoBehaviour
     
     private IEnumerator SetAndPlayBgMusic(string _audioUrl)
     {
-        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.UNKNOWN);
+        UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(_audioUrl, AudioType.MPEG);
         yield return audioRequest.SendWebRequest();
 
         if (audioRequest.error != null)
