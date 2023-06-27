@@ -42,13 +42,16 @@ public class VideoPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (mediaPlayer.Control.IsPlaying() == true)
+        if (mediaPlayer.gameObject.activeInHierarchy)
         {
-            buffringImage.enabled = false;
-        }
-        else
-        {
-            buffringImage.enabled = true;
+            if (mediaPlayer.Control.IsPlaying() == true)
+            {
+                buffringImage.enabled = false;
+            }
+            else
+            {
+                buffringImage.enabled = true;
+            }
         }
     }
 
