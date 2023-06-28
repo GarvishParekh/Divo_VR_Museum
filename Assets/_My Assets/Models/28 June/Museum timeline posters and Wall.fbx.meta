@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: d1016b553bf6d1f4e88a9d30495b3023
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Ceiling_mat
+    second: {fileID: 2100000, guid: 9536cdd74b2120b43b74af7d4b9a9276, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_Frame_1_Mat
+    second: {fileID: 2100000, guid: 04eae3ce1398b1e4293597e0f23fe76a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_10_Mat
+    second: {fileID: 2100000, guid: 407a7aef69f20fa419a14f9a5e014b91, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_11_Mat
+    second: {fileID: 2100000, guid: e9e8abaa63dcb994f99a439001a829bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_12_Mat
+    second: {fileID: 2100000, guid: 3dc8ddb6280f8514082384de051c0f04, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_13_Mat
+    second: {fileID: 2100000, guid: 7131ac924165575488feec8ed395bcc5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_14_Mat
+    second: {fileID: 2100000, guid: 0d471e12196cfef46803ffe44f015a5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_15_Mat
+    second: {fileID: 2100000, guid: 2ef5414d6b79c91419f302ef91a26423, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_16_Mat
+    second: {fileID: 2100000, guid: b83583331fa894844ad7bb31dacad0dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_17_Mat
+    second: {fileID: 2100000, guid: 08f7c3e2bb8cfc24da43f907c6e952d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_18_Mat
+    second: {fileID: 2100000, guid: 82ba1bf0a0c12564a9c3256557a8c37d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_19_Mat
+    second: {fileID: 2100000, guid: c0f929628f8acd04497b450defeb2c4e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_1_Mat
+    second: {fileID: 2100000, guid: 8180298bb01dbdf4c8ed76f8e77c0545, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_20_Mat
+    second: {fileID: 2100000, guid: 271c84ef539b12041b64cc7a9d8afc94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_21_Mat
+    second: {fileID: 2100000, guid: 24550b9c03b72c24fbed3cdef4af40d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_22_Mat
+    second: {fileID: 2100000, guid: 50aba9395d941cd40b7290ee138f1c8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_23_Mat
+    second: {fileID: 2100000, guid: b0e5ef3b0e1a9334a99955655a1141b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_24_Mat
+    second: {fileID: 2100000, guid: a8b5ca4a9651367459439f4aa48bf4a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_25_Mat
+    second: {fileID: 2100000, guid: ad9a01bcef71c4b46bc8aee0125a044e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_2_Mat
+    second: {fileID: 2100000, guid: 95f2e34d13b459f4a8eb7c9455ba3b3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_3_Mat
+    second: {fileID: 2100000, guid: 5393d16d259c3a84cb74ca6742f87bcc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_4_Mat
+    second: {fileID: 2100000, guid: c65a768071e89e54cb1eb5f4b7773bba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_5_Mat
+    second: {fileID: 2100000, guid: dca05ef89323bfc49a6a3e47e809da72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_6_Mat
+    second: {fileID: 2100000, guid: 136196cc7af3484468582baee6e84475, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_7_Mat
+    second: {fileID: 2100000, guid: d474ec8ee4b0c4a4ab78cffe7991abbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_8_Mat
+    second: {fileID: 2100000, guid: b18f2042b193e1445a491ebe805426e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Timeline_poster_9_Mat
+    second: {fileID: 2100000, guid: 90fbcb48b89a7944488c617a5423c7c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_Wall_Glow_Mat
+    second: {fileID: 2100000, guid: 4a3f8ae4c7100ac448a9441c91682198, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_ceiling_Glow_Mat
+    second: {fileID: 2100000, guid: 65c1464284a0aa24c8afd1be2c09a3cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Museum_walls_Mat
+    second: {fileID: 2100000, guid: bd865299aa56b6b4882d4cdcd5941447, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Timeline_GoldLine_Mat
+    second: {fileID: 2100000, guid: 87566eb0d1ecdc4428730ad34c4d936d, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum Ceiling
+    second: {fileID: 2800000, guid: bc23986ef21c9524888a35a82431b01b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Museum Wall 1
+    second: {fileID: 2800000, guid: 3a6c5171e08eeef41b133528e5d02c2b, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

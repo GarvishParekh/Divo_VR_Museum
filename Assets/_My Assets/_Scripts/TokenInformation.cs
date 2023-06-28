@@ -9,6 +9,7 @@ public class TokenInformation : MonoBehaviour
     [Header ("Tokens")]
     public List<string> trophyToken = new List<string>();
     public List<string> imageToken = new List<string>();
+    public List<string> timeLideImageToken = new List<string>();
 
     [Space]
     [SerializeField] private bool storeAPI = false;

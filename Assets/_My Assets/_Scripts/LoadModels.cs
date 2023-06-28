@@ -69,9 +69,8 @@ public class LoadModels : MonoBehaviour
             {
                 if (currentToken == apiManager.museumDataList.data[0].slots.trophy[j].token)
                 {
-                    modelURLs.Add(apiManager.museumDataList.data[0].slots.trophy[j].model);
-                    modelLoadingScripts[i].ModelURL = modelURLs[j];
-                    //Debug.Log("TOKEN NUMBER: " + j);
+                    //modelURLs.Add(apiManager.museumDataList.data[0].slots.trophy[j].model);
+                    modelLoadingScripts[i].ModelURL = apiManager.museumDataList.data[0].slots.trophy[j].model;
                 }
             }
         }

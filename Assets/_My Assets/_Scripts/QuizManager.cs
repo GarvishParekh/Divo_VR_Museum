@@ -35,6 +35,8 @@ public class QuizManager : MonoBehaviour
 
     [Space]
     [Header ("Quiz UI")]
+    [SerializeField] private int questionIndex = 0;
+    [SerializeField] private int questionRecived = 0;
     [SerializeField] private TMP_Text T_quizQuestion;
                              
     [Space]                  
@@ -44,24 +46,25 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private TMP_Text T_quizOption4;
     
     [Space]
-    [SerializeField] private int correctAnswer = 0;
-    [SerializeField] private TMP_Text T_score;
-    [SerializeField] private GameObject scorePanel;
-
-    [Space]
     [SerializeField] private Toggle[] optionToggle;
     [SerializeField] private TMP_Text[] optionText;
-
+    
+    [Space]
     [SerializeField] private Color greenColor;
     [SerializeField] private Color redColor;
 
-    [SerializeField] private int questionIndex = 0;
+    [Space]
+    [Header ("Score panel")]
+    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private int correctAnswer = 0;
+    [SerializeField] private TMP_Text T_score;
     
     private string URL;
 
     [Space]
     [SerializeField] private QuestionData questionData;
 
+    #region Trigger to open panel
     private void OnTriggerEnter(Collider info)
     {
         if (info.CompareTag (playerTag))
@@ -73,6 +76,7 @@ public class QuizManager : MonoBehaviour
         if (info.CompareTag (playerTag))        
             quizPanelAnimation.SetTrigger(endTag);
     }
+    #endregion
 
     private void Start()
     {
@@ -81,6 +85,7 @@ public class QuizManager : MonoBehaviour
         StartCoroutine(GetQuizRequest(URL));
     }
 
+    #region Unity editor control
     private void Update()
     {
         if (Input.GetKeyDown (KeyCode.P))
@@ -94,7 +99,9 @@ public class QuizManager : MonoBehaviour
             _SendAnswers();
         }
     }
+    #endregion
 
+    #region API call
     IEnumerator GetQuizRequest(string url)
     {
         UnityWebRequest quizRequest = UnityWebRequest.Get(url);
@@ -113,9 +120,12 @@ public class QuizManager : MonoBehaviour
             questionData = JsonUtility.FromJson<QuestionData>(questionJsonString);
 
             SetQuizUI(questionIndex);
+            questionRecived = questionData.data.Count;
         }
     }
+    #endregion
 
+    #region Upload form
     IEnumerator UploadAnswers (string url)
     {
         WWWForm answerForm = new WWWForm();
@@ -149,6 +159,7 @@ public class QuizManager : MonoBehaviour
             T_score.text = $"Your score is: <color=#F3A101>{correctAnswer}";
         }
     }
+    #endregion
 
     public void OptionSelected (int _optionIndex)
     {
@@ -169,6 +180,7 @@ public class QuizManager : MonoBehaviour
         answerID.Add(questionData.data[questionIndex].answers[_optionIndex].id);
     }
 
+    // Set the question and option of the quiz UI
     private void SetQuizUI(int _index)
     {
         T_quizQuestion.text = questionData.data[_index].question;
@@ -179,8 +191,15 @@ public class QuizManager : MonoBehaviour
         T_quizOption4.text = questionData.data[_index].answers[3].answer;
     }
 
+    #region Next button click
+    public void _NextQuestion()
+    {
+        StartCoroutine(nameof(NextQuestion));
+    }
+
     IEnumerator NextQuestion ()
     {
+        // user cannot select buttons for couple of seconds
         for (int i = 0; i < optionToggle.Length; i++)
         {
             optionToggle[i].interactable = false;
@@ -188,28 +207,29 @@ public class QuizManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.4f);
 
-        if (questionIndex < 24)
+        // if there are more question 
+        if (questionIndex < questionRecived)
         {
             questionIndex++;
             SetQuizUI(questionIndex);
             ResetOptionMarks();
         }
+        // if no more question
         else
         {
             _SkipButton();
         }
 
+        // player can select options
         for (int i = 0; i < optionToggle.Length; i++)
         {
             optionToggle[i].interactable = true;
             optionText[i].color = Color.white;
         }
     }
-    public void _NextQuestion()
-    {
-        StartCoroutine(nameof(NextQuestion));
-    }
+    #endregion
 
+    // if selected the marker will disappear
     private void ResetOptionMarks()
     {
         for (int i = 0; i < optionToggle.Length; i++)
@@ -228,7 +248,7 @@ public class QuizManager : MonoBehaviour
 
     public void _SendAnswers()
     {
-        StartCoroutine(UploadAnswers(postURL));
+        //StartCoroutine(UploadAnswers(postURL));
         scorePanel.SetActive(true);
         Invoke(nameof(CloseScorePanel), 10);
     }
@@ -239,6 +259,7 @@ public class QuizManager : MonoBehaviour
     }
 }
 
+#region API database
 [System.Serializable]
 public class QuestionData
 {
@@ -277,10 +298,6 @@ public class MainData
     public int questions;
     public int correct;
 }
-
-
-public class AnswerData
-{
-}
+#endregion
 
 
