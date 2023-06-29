@@ -262,7 +262,7 @@ public class Anchor : MonoBehaviour
 
     private void BillboardPanel(Transform panel)
     {
-        // The z axis of the panel faces away from the side that is rendered, therefore this code is actually looking away from the camera
+        // The z Axis of the panel faces away from the side that is rendered, therefore this code is actually looking away from the camera
         panel.LookAt(new Vector3(panel.position.x * 2 - Camera.main.transform.position.x, panel.position.y * 2 - Camera.main.transform.position.y, panel.position.z * 2 - Camera.main.transform.position.z), Vector3.up);
     }
 

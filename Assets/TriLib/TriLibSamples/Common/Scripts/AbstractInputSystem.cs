@@ -65,7 +65,7 @@ namespace TriLibCore.Samples
         }
 
         /// <summary>
-        /// Helper method to get an axis value using the legacy and new input systems.
+        /// Helper method to get an Axis value using the legacy and new input systems.
         /// </summary>
         protected float GetAxis(string axisName)
         {

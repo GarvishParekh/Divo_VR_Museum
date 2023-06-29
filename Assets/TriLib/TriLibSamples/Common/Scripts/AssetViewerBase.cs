@@ -97,7 +97,7 @@ namespace TriLibCore.Samples
         protected const float InputMultiplierRatio = 0.1f;
 
         /// <summary>
-        /// Maximum camera pitch and light pitch (rotation around local X-axis).
+        /// Maximum camera pitch and light pitch (rotation around local X-Axis).
         /// </summary>
         protected const float MaxPitch = 80f;
 

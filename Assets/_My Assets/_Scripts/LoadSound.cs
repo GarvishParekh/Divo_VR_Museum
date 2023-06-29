@@ -91,7 +91,7 @@ public class LoadSound : MonoBehaviour
 
         if (audioRequest.error != null)
         {
-            //Debug.LogError(audioRequest.error);
+            Debug.LogError(audioRequest.error);
         }
         else
         {

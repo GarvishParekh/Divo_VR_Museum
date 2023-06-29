@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using RenderHeads.Media.AVProVideo;
-using UnityEngine.UI;
 
 public class VideoPlayer : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class VideoPlayer : MonoBehaviour
     [SerializeField] private Image buffringImage;
     [SerializeField] MediaPlayer mediaPlayer;
     [SerializeField] Transform mediaPlayerUI;
+    [SerializeField] Transform firstVideoPlayer;
 
     [Space]
     [Header("Data")]
@@ -26,6 +27,7 @@ public class VideoPlayer : MonoBehaviour
     private void Start()
     {
         apiManager = APIManager_JU.instance;
+        firstVideoPlayer.gameObject.SetActive (false);
     }
 
     #region Actions and function
@@ -42,16 +44,13 @@ public class VideoPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (mediaPlayer.gameObject.activeInHierarchy)
+        if (mediaPlayer.Control.IsPlaying() == true)
         {
-            if (mediaPlayer.Control.IsPlaying() == true)
-            {
-                buffringImage.enabled = false;
-            }
-            else
-            {
-                buffringImage.enabled = true;
-            }
+            buffringImage.enabled = false;
+        }
+        else
+        {
+            buffringImage.enabled = true;
         }
     }
 

@@ -801,7 +801,7 @@ public class LocomotionTeleport : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Return a quaternion for the Y axis of the HMD's orientation. 
+	/// Return a quaternion for the Y Axis of the HMD's orientation. 
 	/// Used by orientation handlers to track the current heading before processing user input to adjust it.
 	/// </summary>
 	/// <returns></returns>
