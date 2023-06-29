@@ -57,7 +57,11 @@ public class QuizManager : MonoBehaviour
     [Header ("Score panel")]
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private int correctAnswer = 0;
+    [SerializeField] private int questionAnswred = 0;
+    [SerializeField] private int questionNumber = 1;
     [SerializeField] private TMP_Text T_score;
+    [SerializeField] private TMP_Text T_AnswredQuestion;
+    [SerializeField] private TMP_Text T_QuestionNumber;
     
     private string URL;
 
@@ -163,6 +167,8 @@ public class QuizManager : MonoBehaviour
 
     public void OptionSelected (int _optionIndex)
     {
+        questionAnswred++;
+        T_AnswredQuestion.text = $"Out of: <color=#F3A101>{questionAnswred}";
         optionToggle[_optionIndex].graphic.enabled = true;
         if (questionData.data[questionIndex].answers[_optionIndex].is_correct == "2")
         {
@@ -183,6 +189,8 @@ public class QuizManager : MonoBehaviour
     // Set the question and option of the quiz UI
     private void SetQuizUI(int _index)
     {
+        questionNumber++;
+        T_QuestionNumber.text = $"Question {questionNumber}";
         T_quizQuestion.text = questionData.data[_index].question;
 
         T_quizOption1.text = questionData.data[_index].answers[0].answer;
@@ -208,7 +216,7 @@ public class QuizManager : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
 
         // if there are more question 
-        if (questionIndex < questionRecived)
+        if (questionIndex < questionRecived-1)
         {
             questionIndex++;
             SetQuizUI(questionIndex);
