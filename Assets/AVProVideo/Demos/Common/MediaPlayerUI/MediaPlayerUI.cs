@@ -21,14 +21,14 @@ namespace RenderHeads.Media.AVProVideo.Demos
 {
 	public class MediaPlayerUI : MonoBehaviour
 	{
-		[SerializeField] MediaPlayer _mediaPlayer = null;
+		public MediaPlayer _mediaPlayer = null;
 
 		[Header("Options")]
 
 		[SerializeField] float _keyVolumeDelta = 0.05f;
 		[SerializeField] float _jumpDeltaTime = 5f;
 		[SerializeField] bool _showOptions = true;
-		[SerializeField] bool _autoHide = true;
+		public bool _autoHide = true;
 		[SerializeField] float _userInactiveDuration = 1.5f;
 		[SerializeField] bool _useAudioFading = true;
 
@@ -417,7 +417,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 			}
 		}
 
-		private void MuteAudio(bool mute)
+		public void MuteAudio(bool mute)
 		{
 			if (_mediaPlayer && _mediaPlayer.Control != null)
 			{

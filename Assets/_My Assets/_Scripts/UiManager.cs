@@ -13,6 +13,8 @@ public class UiManager : MonoBehaviour
     public static Action VideoExit;
 
     public static UiManager instance;
+
+    [Header ("All panels")]
     [SerializeField] GameObject[] allPanels;
     [SerializeField] GameObject[] allVideoPanels;
     [SerializeField] GameObject[] allDescriptionPanels;
@@ -20,7 +22,7 @@ public class UiManager : MonoBehaviour
     [Space]
     [SerializeField] GameObject loadingPanel;
 
-    [Space]
+    [Header ("Components")]
     [SerializeField] private OVRPlayerController playerController;
     [SerializeField] private int modelCount = 0;
 
@@ -36,6 +38,11 @@ public class UiManager : MonoBehaviour
     public Material mat2;
 
     public UITrophyData[] uiTrophyData;
+
+    [Header("Avpro HUD settings")]
+    [SerializeField] GameObject leftInteractable;
+    [SerializeField] GameObject rightInteractable;
+    [SerializeField] GameObject mediaPlayerPlane;
 
     private void Awake() => instance = this;
 
@@ -135,6 +142,17 @@ public class UiManager : MonoBehaviour
         loadingPanel.SetActive(false);
         playerController.Acceleration = 0.045f;
     }
+
+    #region Media player settings
+
+    public void MediaPlayerItemsActiveStatus (bool flag)
+    {
+        leftInteractable.SetActive(flag);
+        rightInteractable.SetActive(flag);
+        mediaPlayerPlane.SetActive(flag);   
+    }
+
+    #endregion
 }
 
 [Serializable]

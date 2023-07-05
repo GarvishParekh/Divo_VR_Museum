@@ -2,14 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using RenderHeads.Media.AVProVideo;
+using RenderHeads.Media.AVProVideo.Demos;
 
 public class VideoPlayer : MonoBehaviour
 {
     APIManager_JU apiManager;
 
     [Header ("Media player information")]
+    [SerializeField] private Animator planelAnimation;
     [SerializeField] private Image buffringImage;
     [SerializeField] MediaPlayer mediaPlayer;
+    [SerializeField] MediaPlayerUI mediaPlayerUIControl;
     [SerializeField] Transform mediaPlayerUI;
     [SerializeField] Transform firstVideoPlayer;
 
@@ -24,6 +27,8 @@ public class VideoPlayer : MonoBehaviour
     [SerializeField] private int videoIndex = 0;
     [SerializeField] private Vector3 offsetPosition = new Vector3(0, 0 - 0.5f);
 
+    bool videoCheck = false;
+
     private void Start()
     {
         apiManager = APIManager_JU.instance;
@@ -31,7 +36,6 @@ public class VideoPlayer : MonoBehaviour
     }
 
     #region Actions and function
-
     private void OnEnable()
     {
         APIManager_JU.APIRecived += OnApiRecived;
@@ -40,18 +44,6 @@ public class VideoPlayer : MonoBehaviour
     private void OnDisable()
     {
         APIManager_JU.APIRecived -= OnApiRecived;
-    }
-
-    private void Update()
-    {
-        if (mediaPlayer.Control.IsPlaying() == true)
-        {
-            buffringImage.enabled = false;
-        }
-        else
-        {
-            buffringImage.enabled = true;
-        }
     }
 
     private void OnApiRecived()
@@ -77,8 +69,51 @@ public class VideoPlayer : MonoBehaviour
 
     #endregion
 
+
+    private void Update()
+    {
+        if (mediaPlayer.Control.IsPlaying() == true)
+            buffringImage.enabled = false;
+        else
+            buffringImage.enabled = true;
+
+
+        KeyboardControls();
+
+        if (VideoCompleteCheck() && videoCheck)
+        {
+            planelAnimation.SetTrigger("End");
+            //UiManager.instance.CloseAllpanels();
+            videoCheck = false;
+        }
+    }
+
+    #region Editor controls
+
+    public void KeyboardControls()
+    {
+        if (Input.GetKeyDown (KeyCode.L))
+        {
+            OpenMediaPlayer(3);
+        }
+    }
+
+    #endregion
+
+    private bool VideoCompleteCheck()
+    {
+        if (mediaPlayer.Control.IsFinished())
+            return true;
+        else return false;
+    }
+
     public void OpenMediaPlayer (int _videoIndexInput)
     {
+        videoCheck = true;
+        if (mediaPlayerUIControl._mediaPlayer.AudioMuted)
+        {
+            mediaPlayerUIControl.MuteAudio(false);
+        }
         int _videoIndex = _videoIndexInput - 1;
         if (_videoIndex > videoURL.Count)
         {
@@ -91,10 +126,13 @@ public class VideoPlayer : MonoBehaviour
 
         string videoPath = videoURL[_videoIndex];
         mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, videoPath, autoPlay: true);
+
+        UiManager.instance.MediaPlayerItemsActiveStatus(true);
     }
 
     public void VideoExitButton ()
     {
         mediaPlayer.CloseMedia();
+        UiManager.instance.MediaPlayerItemsActiveStatus(false);
     }
 }

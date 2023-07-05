@@ -144,9 +144,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeState: {fileID: 0}
   _interactableFilters: []
+  _candidateTiebreaker: {fileID: 0}
+  _maxIterationsPerFrame: 3
+  _data: {fileID: 0}
   _selector: {fileID: 5225959746004463820}
   _rayOrigin: {fileID: 3098293304965358369}
   _maxRayLength: 5
+  _equalDistanceThreshold: 0.001
 --- !u!114 &4526630446865022760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +266,7 @@ MonoBehaviour:
   _hoverColor1: {r: 1, g: 1, b: 1, a: 0}
   _selectColor0: {r: 0, g: 0.3413641, b: 0.7924528, a: 0.19607843}
   _selectColor1: {r: 0, g: 0.34117648, b: 0.79215693, a: 0}
+  _hideWhenNoInteractable: 0
 --- !u!114 &1678756800000762683
 MonoBehaviour:
   m_ObjectHideFlags: 0
