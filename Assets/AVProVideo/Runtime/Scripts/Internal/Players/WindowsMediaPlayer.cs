@@ -78,6 +78,7 @@ namespace RenderHeads.Media.AVProVideo
 		private static bool 	_isInitialised = false;
 		private static string 	_version = "Plug-in not yet initialised";
 
+//		private static System.IntPtr _nativeFunction_BeginRender;
 		private static System.IntPtr _nativeFunction_UpdateAllTextures;
 		private static System.IntPtr _nativeFunction_FreeTextures;
 		private static System.IntPtr _nativeFunction_ExtractFrame;
@@ -108,7 +109,7 @@ namespace RenderHeads.Media.AVProVideo
 						SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Direct3D11 ||
 						SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Direct3D12)
 					{
-						if (!Native.Init(QualitySettings.activeColorSpace == ColorSpace.Linear, true))
+						if (!Native.Init(QualitySettings.activeColorSpace == ColorSpace.Linear/*, true*/))
 						{
 							Debug.LogError("[AVProVideo] Failing to initialise platform");
 						}
@@ -116,12 +117,14 @@ namespace RenderHeads.Media.AVProVideo
 						{
 							_isInitialised = true;
 							_version = GetPluginVersion();
-							_nativeFunction_UpdateAllTextures = Native.GetRenderEventFunc_UpdateAllTextures();
-							_nativeFunction_FreeTextures = Native.GetRenderEventFunc_FreeTextures();
-							_nativeFunction_ExtractFrame = Native.GetRenderEventFunc_WaitForNewFrame();
-							if (_nativeFunction_UpdateAllTextures != IntPtr.Zero &&
-								_nativeFunction_FreeTextures != IntPtr.Zero &&
-								_nativeFunction_ExtractFrame != IntPtr.Zero)
+//							_nativeFunction_BeginRender 		= Native.GetRenderEventFunc_BeginRender();
+							_nativeFunction_UpdateAllTextures 	= Native.GetRenderEventFunc_UpdateAllTextures();
+							_nativeFunction_FreeTextures 		= Native.GetRenderEventFunc_FreeTextures();
+							_nativeFunction_ExtractFrame 		= Native.GetRenderEventFunc_WaitForNewFrame();
+							if (/*(_nativeFunction_BeginRender 		!= IntPtr.Zero) &&*/
+								(_nativeFunction_UpdateAllTextures 	!= IntPtr.Zero) &&
+								(_nativeFunction_FreeTextures 		!= IntPtr.Zero) &&
+								(_nativeFunction_ExtractFrame 		!= IntPtr.Zero))
 							{
 								_isInitialised = true;
 							}
@@ -230,7 +233,8 @@ namespace RenderHeads.Media.AVProVideo
 
 		public override bool OpenMedia(string path, long offset, string httpHeader, MediaHints mediaHints, int forceFileFormat = 0, bool startWithHighestBitrate = false)
 		{
-			CloseMedia();
+			// RJT NOTE: Commented out as already called by 'InternalOpenMedia()' which calls this function
+//			CloseMedia();
 
 			uint filterCount = 0U;
 			IntPtr[] filters = null;
@@ -1044,6 +1048,11 @@ namespace RenderHeads.Media.AVProVideo
 		{
 		}
 
+		public override void BeginRender()
+		{
+			IssueRenderThreadEvent(Native.RenderThreadEvent.BeginRender);
+		}
+
 		public override void Render()
 		{
 			UpdateDisplayFrameRate();
@@ -1053,7 +1062,8 @@ namespace RenderHeads.Media.AVProVideo
 
 		public override void Dispose()
 		{
-			CloseMedia();
+			// RJT NOTE: Commented out as already called by 'MediaPlayer::OnDestroy()' which calls this function
+//			CloseMedia();
 		}
 
 		public override int GrabAudio(float[] buffer, int sampleCount, int channelCount)
@@ -1077,23 +1087,25 @@ namespace RenderHeads.Media.AVProVideo
 		}
 
 		private static int _lastUpdateAllTexturesFrame = -1;
-		//private static int _lastFreeUnusedTexturesFrame = -1;
+//		private static int _lastFreeUnusedTexturesFrame = -1;
 
 		private static void IssueRenderThreadEvent(Native.RenderThreadEvent renderEvent)
 		{
+			// RJT TODO: Use single callback with different events instead of multiple callbacks?!
+
 			// We only want to update all textures once per Unity frame
 			if (renderEvent == Native.RenderThreadEvent.UpdateAllTextures)
 			{
-				#if UNITY_EDITOR
+#if UNITY_EDITOR
 				// In the editor Time.frameCount is not updated when not in play mode, in which case skip this check and always allow rendering
 				if (Application.isPlaying)
-				#endif
+#endif
 				if (_lastUpdateAllTexturesFrame == Time.frameCount)
 					return;
 
 				_lastUpdateAllTexturesFrame = Time.frameCount;
 			}
-			/*else if (renderEvent == Native.RenderThreadEvent.FreeTextures)
+/*			else if (renderEvent == Native.RenderThreadEvent.FreeTextures)
 			{
 				// We only want to free unused textures once per Unity frame
 				if (_lastFreeUnusedTexturesFrame == Time.frameCount)
@@ -1102,7 +1114,11 @@ namespace RenderHeads.Media.AVProVideo
 				_lastFreeUnusedTexturesFrame = Time.frameCount;
 			}*/
 
-			if (renderEvent == Native.RenderThreadEvent.UpdateAllTextures)
+/*			if (renderEvent == Native.RenderThreadEvent.BeginRender)
+			{
+				GL.IssuePluginEvent(_nativeFunction_BeginRender, 0);
+			}
+			else*/ if (renderEvent == Native.RenderThreadEvent.UpdateAllTextures)
 			{
 				GL.IssuePluginEvent(_nativeFunction_UpdateAllTextures, 0);
 			}
@@ -1346,6 +1362,7 @@ namespace RenderHeads.Media.AVProVideo
 		{
 			public enum RenderThreadEvent
 			{
+				BeginRender,
 				UpdateAllTextures,
 				FreeTextures,
 				WaitForNewFrame,
@@ -1357,7 +1374,7 @@ namespace RenderHeads.Media.AVProVideo
 #if AVPROVIDEO_MARSHAL_RETURN_BOOL
 			[return: MarshalAs(UnmanagedType.I1)]
 #endif
-			public static extern bool Init(bool linearColorSpace, bool isD3D11NoSingleThreaded);
+			public static extern bool Init(bool linearColorSpace);
 
 			[DllImport("AVProVideo")]
 			public static extern void Deinit();
@@ -1601,6 +1618,9 @@ namespace RenderHeads.Media.AVProVideo
 
 			[DllImport("AVProVideo")]
 			public static extern float GetTexturePixelAspectRatio(System.IntPtr instance);
+
+			[DllImport("AVProVideo")]
+			public static extern System.IntPtr GetRenderEventFunc_BeginRender();
 
 			[DllImport("AVProVideo")]
 			public static extern System.IntPtr GetRenderEventFunc_UpdateAllTextures();

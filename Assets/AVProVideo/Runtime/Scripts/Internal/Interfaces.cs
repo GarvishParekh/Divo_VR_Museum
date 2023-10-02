@@ -14,6 +14,7 @@ namespace RenderHeads.Media.AVProVideo
 		void OnEnable();
 		void Update();
 		void EndUpdate();
+		void BeginRender();
 		void Render();
 		IntPtr GetNativePlayerHandle();
 	}

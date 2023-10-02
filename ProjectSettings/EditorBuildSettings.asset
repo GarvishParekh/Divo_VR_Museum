@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_My Assets/Scenes/Museum Scene Static Build.unity
+    path: Assets/_Museum/Scenes/Museum Scene Static Build.unity
     guid: 84b1614b7ce51674cadd00bc068da485
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bb63c69896eb4e143b2007e61b308471, type: 2}

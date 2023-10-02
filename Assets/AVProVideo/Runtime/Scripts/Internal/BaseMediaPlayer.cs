@@ -262,6 +262,8 @@ namespace RenderHeads.Media.AVProVideo
 		/// <inheritdoc/>
 		public abstract void		Update();
 		/// <inheritdoc/>
+		public /*abstract*/virtual void	BeginRender() { }
+		/// <inheritdoc/>
 		public abstract void		Render();
 		/// <inheritdoc/>
 		public abstract void		Dispose();

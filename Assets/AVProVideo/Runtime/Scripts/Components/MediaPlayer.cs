@@ -838,6 +838,12 @@ namespace RenderHeads.Media.AVProVideo
 		private void LateUpdate()
 		{
 			UpdateResampler();
+
+			// RJT TODO: Better location?
+			if (_playerInterface != null)
+			{
+				_playerInterface.BeginRender();
+			}
 		}
 
 		private void UpdateResampler()
